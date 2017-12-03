@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html style="height: auto; min-height: 100%;">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>进销存管理系统</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="stylesheet" href="adminlte/bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="adminlte/bower_components/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="adminlte/bower_components/Ionicons/css/ionicons.min.css">
+    <link rel="stylesheet" href="adminlte/bower_components/jvectormap/jquery-jvectormap.css">
+    <link rel="stylesheet" href="adminlte/dist/css/AdminLTE.min.css">
+    <link rel="stylesheet" href="adminlte/dist/css/skins/_all-skins.min.css">
+</head>
+
+<body class="sidebar-mini skin-blue" style="height: auto; min-height: 100%;">
+
+<div id="app">
+    <div class="wrapper" style="height: auto; min-height: 100%;">
+
+        <!--头部-->
+        <header class="main-header">
+            <a href="#" class="logo">
+                <span class="logo-mini"><b>H</b>C</span>
+                <span class="logo-lg"><b>Harlan</b>Cui</span>
+            </a>
+            <nav class="navbar navbar-static-top">
+                <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+                    <span class="sr-only">Toggle navigation</span>
+                </a>
+            </nav>
+        </header>
+        <!--头部结束-->
+
+        <!--左侧-->
+        <aside class="main-sidebar">
+
+            <section class="sidebar" style="height: auto;">
+                <ul class="sidebar-menu tree" data-widget="tree">
+                    <li class="header">功能菜单</li>
+
+                    <!--库存管理-->
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-cube"></i><span>库存管理</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu" style="display: none;">
+                            <li><a href="#" @click="openitem"><i class="fa fa-inbox"></i>库存查看</a></li>
+                            <li><a href="#" @click="openstock"><i class="fa fa-dropbox"></i>销售记录</a></li>
+                        </ul>
+                    </li>
+                    <!--库存管理结束-->
+
+                    <!--交易记录-->
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-money"></i><span>进出记录</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                           </span>
+                        </a>
+                        <ul class="treeview-menu" style="display: none;">
+                            <li><a href="#" @click="openputin"><i class="fa fa-plus-square"></i>条目入库</a></li>
+                            <li><a href="#" @click="openputout"><i class="fa fa-minus-square"></i>条目出库</a></li>
+                        </ul>
+                    </li>
+                    <!--交易记录结束-->
+                </ul>
+
+            </section>
+
+        </aside>
+        <!--左侧结束-->
+
+
+        <!--右侧-->
+        <div class="content-wrapper" style="min-height: 960px;">
+            <section class="content-header">
+
+            </section>
+            <section class="content">
+                <!--类别查看-->
+                <div class="row" v-show="box.itemcheck">
+                    <div class="col-md-12">
+                        <div class="box">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">所有类别</h3>
+                            </div>
+                            <!-- /.box-header -->
+                            <div class="box-body">
+                                <table class="table table-bordered">
+                                    <tbody>
+                                    <tr>
+                                        <th>编号</th>
+                                        <th>名称</th>
+                                        <th>单价</th>
+                                        <th>总量</th>
+                                        <th>创建人</th>
+                                        <th>创建时间</th>
+                                        <th>操作</th>
+                                    </tr>
+                                    <tr v-for="item in items">
+                                        <td>{{ item.id }}</td>
+                                        <td>{{ item.itemname }}</td>
+                                        <td>{{ item.itemprice }}</td>
+                                        <td>{{ item.number }}</td>
+                                        <td>{{ item.createuser }}</td>
+                                        <td>{{ item.createtime }}</td>
+                                        <th style="width: 150px;">
+                                            <button type="button" class="btn btn-primary" data-toggle="modal"
+                                                    data-target="#itemupp" @click="updateitem(item.id)">修改
+                                            </button>
+                                            <button type="button" class="btn btn-warning" @click="deleteitem(item.id)">
+                                                删除
+                                            </button>
+                                        </th>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.box-body -->
+                            <div class="box-footer clearfix">
+                                <button type="button" class="btn btn-success" data-toggle="modal"
+                                        data-target="#itemadd">
+                                    新增
+                                </button>
+                            </div>
+                        </div>
+                        <!-------------------------------------------------->
+                        <!--items add panel-->
+                        <div class="modal fade" id="itemadd" style="display :none;">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">×</span></button>
+                                        <h4 class="modal-title">新增类别</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form role="form">
+                                            <div class="form-group">
+                                                <input class="form-control" v-model="additem.itemname" placeholder="名称">
+                                            </div>
+                                            <div class="form-group">
+                                                <input class="form-control" v-model="additem.itemprice"
+                                                       placeholder="单价">
+                                            </div>
+                                            <div class="form-group">
+                                                <input class="form-control" v-model="additem.number" placeholder="总量">
+                                            </div>
+                                            <div class="form-group">
+                                                <input class="form-control" v-model="additem.createuser"
+                                                       placeholder="创建人">
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">
+                                            关闭
+                                        </button>
+                                        <button type="button" @click="additems" class="btn btn-primary"
+                                                data-dismiss="modal">保存
+                                        </button>
+                                    </div>
+                                </div>
+                                <!-- /.modal-content -->
+                            </div>
+                        </div>
+
+                        <!-------------------------------------------------->
+                        <!--items upp panel-->
+                        <div class="modal fade" id="itemupp" style="display :none;">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">×</span></button>
+                                        <h4 class="modal-title">修改类别</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form role="form">
+                                            <div class="form-group">
+                                                <input class="form-control" v-model="uppitem.itemname" placeholder="名称">
+                                            </div>
+                                            <div class="form-group">
+                                                <input class="form-control" v-model="uppitem.itemprice"
+                                                       placeholder="单价">
+                                            </div>
+                                            <div class="form-group">
+                                                <input class="form-control" v-model="uppitem.number" placeholder="总量">
+                                            </div>
+                                            <div class="form-group">
+                                                <input class="form-control" v-model="uppitem.createuser"
+                                                       placeholder="创建人">
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">
+                                            关闭
+                                        </button>
+                                        <button type="button" @click="update" class="btn btn-primary"
+                                                data-dismiss="modal">保存
+                                        </button>
+                                    </div>
+                                </div>
+                                <!-- /.modal-content -->
+                            </div>
+                        </div>
+                        <!-- /.box -->
+                    </div>
+                </div>
+
+                <!--库存查看-->
+                <div class="row" v-show="box.stockcheck"></div>
+                <!--入库-->
+                <div class="row" v-show="box.putin"></div>
+                <!--出库-->
+                <div class="row" v-show="box.putout"></div>
+
+            </section>
+
+        </div>
+        <!--右侧结束-->
+
+        <!--尾部-->
+        <footer class="main-footer">
+            <center>
+                <div class="pull-right hidden-xs">
+                    <b>Version</b> 0.0.1
+                </div>
+                <strong>Power by Harlancui <a href="#">BOWLDER MANAGER SYSTEM</a></strong>
+            </center>
+        </footer>
+        <!--尾部结束-->
+    </div>
+
+
+</div>
+
+
+<script src="adminlte/bower_components/jquery/dist/jquery.min.js"></script>
+<script src="adminlte/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="adminlte/bower_components/fastclick/lib/fastclick.js"></script>
+<script src="adminlte/dist/js/adminlte.min.js"></script>
+<script src="adminlte/bower_components/jquery-sparkline/dist/jquery.sparkline.min.js"></script>
+<script src="adminlte/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
+<script src="adminlte/plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
+<script src="adminlte/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+<script src="adminlte/bower_components/chart.js/Chart.js"></script>
+<script src="adminlte/dist/js/pages/dashboard2.js"></script>
+<script src="adminlte/dist/js/demo.js"></script>
+<script src="js/vue.js"></script>
+<script src="js/axios.js"></script>
+<script src="js/app.js"></script>
+</body>
+
+</html>

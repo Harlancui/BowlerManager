@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.harlan.dao.ItemsMapper">
+    <select id="queryListForPage" resultType="cn.harlan.entity.Items">
+        SELECT * FROM Items
+    </select>
+
+    <insert id="additem" parameterType="cn.harlan.entity.Items"  useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO Items (itemname, itemprice, number, createuser, createtime)
+        VALUES (#{itemname},#{itemprice},#{number},#{createuser},#{createtime});
+    </insert>
+
+    <select id="queryItem" parameterType="cn.harlan.entity.Items" resultType="cn.harlan.entity.Items">
+        SELECT * FROM Items WHERE itemname = #{itemname} and itemprice = #{itemprice} and number = #{number}
+        and createuser = #{createuser} and createtime = #{createtime}
+    </select>
+
+    <delete id="deleteById" parameterType="cn.harlan.entity.Items">
+        DELETE FROM Items WHERE id = #{id}
+    </delete>
+
+    <select id="queryItemById" parameterType="cn.harlan.entity.Items" resultType="cn.harlan.entity.Items">
+        SELECT * FROM Items WHERE id = #{id}
+    </select>
+
+    <update id="update" parameterType="cn.harlan.entity.Items">
+        UPDATE Items SET itemname = #{itemname},itemprice = #{itemprice},number = #{number},
+        createuser = #{createuser} WHERE id = #{id}
+    </update>
+</mapper>
