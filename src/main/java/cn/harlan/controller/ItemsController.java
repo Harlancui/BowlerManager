@@ -1,10 +1,8 @@
 package cn.harlan.controller;
 
-import cn.harlan.dao.ItemsMapper;
 import cn.harlan.entity.Items;
 import cn.harlan.service.ItemsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;

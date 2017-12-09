@@ -1,7 +1,11 @@
 const app = new Vue({
     el: "#app",
     data: {
+        putinadditem:{
+
+        },
         items: [],
+        itemmap:[],
         additem: {
             id: null,
             itemname: null,
@@ -26,7 +30,9 @@ const app = new Vue({
                 false,
             putout:
                 false,
-        }
+        },
+        ruku:[],
+        chuku:[],
     },
     methods: {
         additems: function () {
@@ -94,6 +100,28 @@ const app = new Vue({
             app.box.stockcheck = false;
             app.box.putin = true;
             app.box.putout = false;
+
+            axios.post("/record/queryRuKu").then((response)=>{
+                for (index in response.data) {
+                    response.data[index].time = fmtDate(response.data[index].time);
+                }
+                app.ruku = response.data;
+            }).catch((error)=>{
+              console.log(error);
+            });
+
+            axios.post("/record/queryMap").then((res)=>{
+                app.itemmap = res.data;
+            });
+        },
+        putinadd:function () {
+
+        },
+        putinupp:function () {
+            
+        },
+        putindelete:function () {
+
         }
         ,
         openputout: function () {

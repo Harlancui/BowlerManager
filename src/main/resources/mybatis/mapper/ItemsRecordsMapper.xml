@@ -3,5 +3,11 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.harlan.dao.ItemRecordsMapper">
+<select id="queryRuKu" parameterType="java.lang.Integer" resultType="cn.harlan.entity.ItemRecords">
+    select * from ItemRecords where type = #{0}
+</select>
 
+    <select id="queryMap" resultType="cn.harlan.entity.ItemMap">
+        select id,itemname from Items
+    </select>
 </mapper>
