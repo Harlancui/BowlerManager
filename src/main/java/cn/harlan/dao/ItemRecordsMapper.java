@@ -9,4 +9,9 @@ import java.util.List;
 public interface ItemRecordsMapper {
     List<ItemRecords> queryRuKu(Integer type);
     List<ItemMap> queryMap();
+    Integer queryPrice(Integer id);
+    Integer putinadd(ItemRecords itemRecords);
+
+    public  void kucunadd(ItemRecords itemRecords);
+    public  void chukuadd(ItemRecords itemRecords);
 }

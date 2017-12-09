@@ -10,4 +10,21 @@
     <select id="queryMap" resultType="cn.harlan.entity.ItemMap">
         select id,itemname from Items
     </select>
+
+    <select id="queryPrice"  resultType="java.lang.Integer" parameterType="java.lang.Integer">
+       SELECT itemprice from Items where id = #{0}
+    </select>
+
+    <insert id="putinadd" useGeneratedKeys="true" keyProperty="id" parameterType="cn.harlan.entity.ItemRecords">
+        insert into ItemRecords(item_id,type,whobuy,whosell,number,allprice,phone,time)
+        values(#{item_id},#{type},#{whobuy},#{whosell},#{number},#{allprice},#{phone},#{time})
+    </insert>
+
+    <update id="kucunadd" parameterType="cn.harlan.entity.ItemRecords">
+      UPDATE Items set number = number + #{number} where id = #{item_id}
+    </update>
+
+    <update id="chukuadd">
+        UPDATE Items set number = number - #{number} where id = #{item_id}
+    </update>
 </mapper>

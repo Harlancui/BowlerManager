@@ -25,4 +25,25 @@ public class ItemRecordsServiceImpl implements ItemRecordsService{
         return mapper.queryMap();
     }
 
+    @Override
+    public Integer queryPrice(Integer id) {
+        return mapper.queryPrice(id);
+    }
+
+    @Override
+    public Integer putinadd(ItemRecords itemRecords) {
+       return mapper.putinadd(itemRecords);
+    }
+
+    @Override
+    public void kucunadd(ItemRecords itemRecords) {
+        mapper.kucunadd(itemRecords);
+    }
+
+    @Override
+    public void chukuadd(ItemRecords itemRecords) {
+        mapper.chukuadd(itemRecords);
+    }
+
+
 }

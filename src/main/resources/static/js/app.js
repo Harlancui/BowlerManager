@@ -33,6 +33,7 @@ const app = new Vue({
         },
         ruku:[],
         chuku:[],
+        temp:[],
     },
     methods: {
         additems: function () {
@@ -105,6 +106,15 @@ const app = new Vue({
                 for (index in response.data) {
                     response.data[index].time = fmtDate(response.data[index].time);
                 }
+
+                response.data.forEach((a)=>{
+                    app.itemmap.forEach((b)=>{
+                        if(a.item_id == b.id){
+                            a.item_id = b.itemname;
+                        }
+                    })
+                })
+
                 app.ruku = response.data;
             }).catch((error)=>{
               console.log(error);
@@ -115,7 +125,20 @@ const app = new Vue({
             });
         },
         putinadd:function () {
-
+            app.itemmap.forEach((a)=>{
+                if(a.itemname == app.putinadditem.item_id){
+                    app.putinadditem.item_id = a.id;
+                }
+            })
+            axios.post("/record/rukuadd",app.putinadditem).then((res)=>{
+                app.itemmap.forEach((a)=>{
+                    if(a.id == res.data.item_id){
+                        res.data.item_id = a.itemname;
+                        res.data.time = fmtDate(res.data.time);
+                    }
+                });
+                app.ruku.push(res.data);
+            });
         },
         putinupp:function () {
             
