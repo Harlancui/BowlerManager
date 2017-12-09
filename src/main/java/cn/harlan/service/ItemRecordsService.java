@@ -14,4 +14,5 @@ public interface ItemRecordsService {
     Integer putinadd(ItemRecords itemRecords);
     public  void kucunadd(ItemRecords itemRecords);
     public  void chukuadd(ItemRecords itemRecords);
+    Integer checknumber(Integer id);
 }

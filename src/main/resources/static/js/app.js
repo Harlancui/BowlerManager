@@ -1,11 +1,10 @@
 const app = new Vue({
     el: "#app",
     data: {
-        putinadditem:{
-
-        },
+        putinadditem: {},
+        putoutadditem: {},
         items: [],
-        itemmap:[],
+        itemmap: [],
         additem: {
             id: null,
             itemname: null,
@@ -31,9 +30,9 @@ const app = new Vue({
             putout:
                 false,
         },
-        ruku:[],
-        chuku:[],
-        temp:[],
+        ruku: [],
+        chuku: [],
+        temp: [],
     },
     methods: {
         additems: function () {
@@ -102,48 +101,43 @@ const app = new Vue({
             app.box.putin = true;
             app.box.putout = false;
 
-            axios.post("/record/queryRuKu").then((response)=>{
+            axios.post("/record/queryRuKu").then((response) => {
                 for (index in response.data) {
                     response.data[index].time = fmtDate(response.data[index].time);
                 }
 
-                response.data.forEach((a)=>{
-                    app.itemmap.forEach((b)=>{
-                        if(a.item_id == b.id){
+                response.data.forEach((a) => {
+                    app.itemmap.forEach((b) => {
+                        if (a.item_id == b.id) {
                             a.item_id = b.itemname;
                         }
                     })
                 })
 
                 app.ruku = response.data;
-            }).catch((error)=>{
-              console.log(error);
+            }).catch((error) => {
+                console.log(error);
             });
 
-            axios.post("/record/queryMap").then((res)=>{
+            axios.post("/record/queryMap").then((res) => {
                 app.itemmap = res.data;
             });
         },
-        putinadd:function () {
-            app.itemmap.forEach((a)=>{
-                if(a.itemname == app.putinadditem.item_id){
+        putinadd: function () {
+            app.itemmap.forEach((a) => {
+                if (a.itemname == app.putinadditem.item_id) {
                     app.putinadditem.item_id = a.id;
                 }
             })
-            axios.post("/record/rukuadd",app.putinadditem).then((res)=>{
-                app.itemmap.forEach((a)=>{
-                    if(a.id == res.data.item_id){
+            axios.post("/record/rukuadd", app.putinadditem).then((res) => {
+                app.itemmap.forEach((a) => {
+                    if (a.id == res.data.item_id) {
                         res.data.item_id = a.itemname;
                         res.data.time = fmtDate(res.data.time);
                     }
                 });
                 app.ruku.push(res.data);
             });
-        },
-        putinupp:function () {
-            
-        },
-        putindelete:function () {
 
         }
         ,
@@ -152,6 +146,48 @@ const app = new Vue({
             app.box.stockcheck = false;
             app.box.putin = false;
             app.box.putout = true;
+
+            axios.post("/record/queryChuKu").then((response) => {
+                for (index in response.data) {
+                    response.data[index].time = fmtDate(response.data[index].time);
+                }
+
+                response.data.forEach((a) => {
+                    app.itemmap.forEach((b) => {
+                        if (a.item_id == b.id) {
+                            a.item_id = b.itemname;
+                        }
+                    })
+                })
+
+                app.chuku = response.data;
+            }).catch((error) => {
+                console.log(error);
+            });
+            axios.post("/record/queryMap").then((res) => {
+                app.itemmap = res.data;
+            });
+
+        },
+        putoutadd: function () {
+            app.itemmap.forEach((a) => {
+                if (a.itemname == app.putoutadditem.item_id) {
+                    app.putoutadditem.item_id = a.id;
+                }
+            })
+            axios.post("/record/chukuadd", app.putoutadditem).then((res) => {
+                if (res.data.id == "0"){
+                    alert("你没有那么多货了");
+                }else{
+                    app.itemmap.forEach((a) => {
+                        if (a.id == res.data.item_id) {
+                            res.data.item_id = a.itemname;
+                            res.data.time = fmtDate(res.data.time);
+                        }
+                    });
+                    app.chuku.push(res.data);
+                }
+            });
         }
     }
 });

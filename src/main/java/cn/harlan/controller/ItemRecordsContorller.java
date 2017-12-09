@@ -48,4 +48,20 @@ public class ItemRecordsContorller {
         service.putinadd(itemRecords);
         return itemRecords;
     }
+    @RequestMapping(value = "chukuadd",method = RequestMethod.POST)
+    public ItemRecords cadd(@RequestBody ItemRecords itemRecords){
+        if (service.checknumber(itemRecords.getItem_id())< itemRecords.getNumber()){
+            itemRecords.setId(0);
+        }else{
+            Integer price = service.queryPrice(itemRecords.getItem_id());
+            Double allprice = Double.valueOf(price*itemRecords.getNumber());
+            itemRecords.setAllprice(allprice);
+            itemRecords.setTime(new Date());
+            itemRecords.setType(1);
+            service.chukuadd(itemRecords);
+            service.putinadd(itemRecords);
+        }
+        return itemRecords;
+    }
+
 }

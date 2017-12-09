@@ -45,5 +45,10 @@ public class ItemRecordsServiceImpl implements ItemRecordsService{
         mapper.chukuadd(itemRecords);
     }
 
+    @Override
+    public Integer checknumber(Integer id) {
+       return mapper.checknumber(id);
+    }
+
 
 }

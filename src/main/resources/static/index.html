@@ -227,7 +227,7 @@
                             <div class="box-header with-border">
 
                                     <button type="button" class="btn btn-success" data-toggle="modal" data-target="#rukuadd">
-                                        新增
+                                        入库
                                     </button>
 
                             </div>
@@ -309,7 +309,91 @@
                 </div>
                 <!--出库-->
                 <div class="row" v-show="box.putout">
+                    <div class="col-md-12">
+                        <div class="box">
 
+                            <div class="box-header with-border">
+
+                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#chukuadd">
+                                    出库
+                                </button>
+
+                            </div>
+                            <!-- /.box-header -->
+                            <div class="box-body">
+                                <table class="table table-bordered">
+                                    <tbody>
+                                    <tr>
+                                        <th>编号</th>
+                                        <th>名称</th>
+                                        <th>买家</th>
+                                        <th>卖家</th>
+                                        <th>数量</th>
+                                        <th>总价</th>
+                                        <th>联系方式</th>
+                                        <th>时间</th>
+                                    </tr>
+                                    <tr v-for="c in chuku">
+                                        <td>{{ c.id }}</td>
+                                        <td>{{ c.item_id }}</td>
+                                        <td>{{ c.whobuy }}</td>
+                                        <td>{{ c.whosell }}</td>
+                                        <td>{{ c.number }}</td>
+                                        <td>{{ c.allprice }}</td>
+                                        <td>{{ c.phone }}</td>
+                                        <td>{{ c.time }}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                        <div class="modal fade" id="chukuadd" style="display :none;">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">×</span></button>
+                                        <h4 class="modal-title">新增出库</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form role="form">
+                                            <div class="form-group">
+                                                <select class="form-control select2 select2-hidden-accessible"  v-model="putoutadditem.item_id" style="width: 100%;" tabindex="-1" aria-hidden="true">
+                                                    <option v-for="i in itemmap" v-text="i.itemname"></option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <input class="form-control" v-model="putoutadditem.number"
+                                                       placeholder="数量">
+                                            </div>
+                                            <div class="form-group">
+                                                <input class="form-control" v-model="putoutadditem.whobuy"
+                                                       placeholder="买家">
+                                            </div>
+                                            <div class="form-group">
+                                                <input class="form-control" v-model="putoutadditem.whosell"
+                                                       placeholder="卖家">
+                                            </div>
+                                            <div class="form-group">
+                                                <input class="form-control" v-model="putoutadditem.phone"
+                                                       placeholder="联系方式">
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">
+                                            关闭
+                                        </button>
+                                        <button type="button" @click="putoutadd" class="btn btn-primary"
+                                                data-dismiss="modal">保存
+                                        </button>
+                                    </div>
+                                </div>
+                                <!-- /.modal-content -->
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
             </section>

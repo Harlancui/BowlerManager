@@ -27,4 +27,8 @@
     <update id="chukuadd">
         UPDATE Items set number = number - #{number} where id = #{item_id}
     </update>
+
+    <select id="checknumber" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+select number from Items where id = #{0}
+    </select>
 </mapper>
