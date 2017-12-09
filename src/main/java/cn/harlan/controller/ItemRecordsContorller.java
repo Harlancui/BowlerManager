@@ -1,9 +1,6 @@
 package cn.harlan.controller;
 
-import cn.harlan.entity.End;
-import cn.harlan.entity.ItemMap;
-import cn.harlan.entity.ItemRecords;
-import cn.harlan.entity.QueryUtil;
+import cn.harlan.entity.*;
 import cn.harlan.service.ItemRecordsService;
 import org.omg.PortableInterceptor.INACTIVE;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +9,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -69,8 +69,40 @@ public class ItemRecordsContorller {
 
     @RequestMapping(value = "queryAllRecord",method = RequestMethod.POST)
     public End queryAllRecord(@RequestBody QueryUtil util){
-        System.out.println(util.toString());
-        return null;
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Integer.valueOf(util.getYear()),Integer.valueOf(util.getMonth()),Integer.valueOf(util.getDay()));
+
+        RealyUtil realyUtil = new RealyUtil();
+        realyUtil.setDate(calendar.getTime());
+        if(util.getType() !=null){
+            realyUtil.setType(Integer.valueOf(util.getType()));
+        }
+        List<ItemRecords> records=new ArrayList<>();
+        try {
+             records = service.queryAll(realyUtil);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        Double cost = 0.0;
+        Double sell = 0.0;
+
+
+
+        for (ItemRecords r : records){
+            if(r.getType() == 0){
+                cost += r.getAllprice();
+            }else if(r.getType() == 1){
+                sell += r.getAllprice();
+            }
+        }
+
+        End end = new End();
+        end.setRecordsList(records);
+        end.setCost(cost);
+        end.setSell(sell);
+
+        return end;
     }
 
 }

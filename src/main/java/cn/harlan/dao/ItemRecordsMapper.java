@@ -2,6 +2,7 @@ package cn.harlan.dao;
 
 import cn.harlan.entity.ItemMap;
 import cn.harlan.entity.ItemRecords;
+import cn.harlan.entity.RealyUtil;
 import org.apache.ibatis.annotations.Mapper;
 import java.util.List;
 
@@ -16,5 +17,5 @@ public interface ItemRecordsMapper {
     public  void chukuadd(ItemRecords itemRecords);
     Integer checknumber(Integer id);
 
-    public List<ItemRecords> queryAll();
+    public List<ItemRecords> queryAll(RealyUtil realyUtil);
 }

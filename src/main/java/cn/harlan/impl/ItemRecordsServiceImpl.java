@@ -3,6 +3,7 @@ package cn.harlan.impl;
 import cn.harlan.dao.ItemRecordsMapper;
 import cn.harlan.entity.ItemMap;
 import cn.harlan.entity.ItemRecords;
+import cn.harlan.entity.RealyUtil;
 import cn.harlan.service.ItemRecordsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -51,8 +52,8 @@ public class ItemRecordsServiceImpl implements ItemRecordsService{
     }
 
     @Override
-    public List<ItemRecords> queryAll() {
-        return mapper.queryAll();
+    public List<ItemRecords> queryAll(RealyUtil realyUtil) {
+        return mapper.queryAll(realyUtil);
     }
 
 

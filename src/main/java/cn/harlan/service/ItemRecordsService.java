@@ -2,6 +2,7 @@ package cn.harlan.service;
 
 import cn.harlan.entity.ItemMap;
 import cn.harlan.entity.ItemRecords;
+import cn.harlan.entity.RealyUtil;
 
 import java.util.List;
 
@@ -16,5 +17,5 @@ public interface ItemRecordsService {
     public  void chukuadd(ItemRecords itemRecords);
     Integer checknumber(Integer id);
 
-    List<ItemRecords> queryAll();
+    List<ItemRecords> queryAll(RealyUtil realyUtil);
 }

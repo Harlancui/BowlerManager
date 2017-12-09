@@ -22,7 +22,7 @@
         <header class="main-header">
             <a href="#" class="logo">
                 <span class="logo-mini"><b>海</b>玉</span>
-                <span class="logo-lg"><b>Harlan</b> cui</span>
+                <span class="logo-lg"><b>Harlan</b></span>
             </a>
             <nav class="navbar navbar-static-top">
                 <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
@@ -106,12 +106,12 @@
                                         <th>操作</th>
                                     </tr>
                                     <tr v-for="item in items">
-                                        <td>{{ item.id }}</td>
-                                        <td>{{ item.itemname }}</td>
-                                        <td>{{ item.itemprice }}</td>
-                                        <td>{{ item.number }}</td>
-                                        <td>{{ item.createuser }}</td>
-                                        <td>{{ item.createtime }}</td>
+                                        <td v-text="item.id"></td>
+                                        <td v-text="item.itemname"></td>
+                                        <td v-text="item.itemprice"></td>
+                                        <td v-text="item.number"></td>
+                                        <td v-text="item.createuser"></td>
+                                        <td v-text="item.createtime"></td>
                                         <th style="width: 150px;">
                                             <button type="button" class="btn btn-primary" data-toggle="modal"
                                                     data-target="#itemupp" @click="updateitem(item.id)">修改
@@ -241,10 +241,10 @@
                                     </div>
                                     <div class="col-md-2">
                                         <label class="col-md-6">花费
-                                            <p>111</p>
+                                            <p v-text="cost"></p>
                                         </label>
                                         <label class="col-md-6">收入
-                                            <p>111</p>
+                                            <p v-text="sell"></p>
                                         </label>
                                     </div>
 
@@ -265,16 +265,17 @@
                                         <th>联系方式</th>
                                         <th>时间</th>
                                     </tr>
-                                    <tr v-for="item in items">
-                                      <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                    <tr v-for="e in endlist">
+
+                                        <td v-text="e.id"></td>
+                                        <td v-text="e.item_id"></td>
+                                        <td v-text="e.type"></td>
+                                        <td v-text="e.whobuy"></td>
+                                        <td v-text="e.whosell"></td>
+                                        <td v-text="e.number"></td>
+                                        <td v-text="e.allprice"></td>
+                                        <td v-text="e.phone"></td>
+                                        <td v-text="e.time"></td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -309,14 +310,14 @@
                                         <th>时间</th>
                                     </tr>
                                     <tr v-for="r in ruku">
-                                        <td>{{ r.id }}</td>
-                                        <td>{{ r.item_id }}</td>
-                                        <td>{{ r.whobuy }}</td>
-                                        <td>{{ r.whosell }}</td>
-                                        <td>{{ r.number }}</td>
-                                        <td>{{ r.allprice }}</td>
-                                        <td>{{ r.phone }}</td>
-                                        <td>{{ r.time }}</td>
+                                        <td v-text="r.id"></td>
+                                        <td v-text="r.item_id"></td>
+                                        <td v-text="r.whobuy"></td>
+                                        <td v-text="r.whosell"></td>
+                                        <td v-text="r.number"></td>
+                                        <td v-text="r.allprice"></td>
+                                        <td v-text="r.phone"></td>
+                                        <td v-text="r.time"></td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -397,14 +398,14 @@
                                         <th>时间</th>
                                     </tr>
                                     <tr v-for="c in chuku">
-                                        <td>{{ c.id }}</td>
-                                        <td>{{ c.item_id }}</td>
-                                        <td>{{ c.whobuy }}</td>
-                                        <td>{{ c.whosell }}</td>
-                                        <td>{{ c.number }}</td>
-                                        <td>{{ c.allprice }}</td>
-                                        <td>{{ c.phone }}</td>
-                                        <td>{{ c.time }}</td>
+                                        <td v-text="c.id"></td>
+                                        <td v-text="c.item_id"></td>
+                                        <td v-text="c.whobuy"></td>
+                                        <td v-text="c.whosell"></td>
+                                        <td v-text="c.number"></td>
+                                        <td v-text="c.allprice"></td>
+                                        <td v-text="c.phone"></td>
+                                        <td v-text="c.time"></td>
                                     </tr>
                                     </tbody>
                                 </table>

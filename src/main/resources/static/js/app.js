@@ -1,12 +1,15 @@
 const app = new Vue({
     el: "#app",
     data: {
+        cost:null,
+        sell:null,
         queryutil:{
             year:null,
             month:null,
             day:null,
-            type:0
+            type:null,
         },
+        endlist:[],
         putinadditem: {},
         putoutadditem: {},
         items: [],
@@ -45,7 +48,7 @@ const app = new Vue({
             axios.post('/items/additem', app.additem).then((res) => {
                 app.items.push(res.data);
             }).catch((error) => {
-                alert(eroor);
+                alert("数据填写有误!");
             })
         },
         updateitem: function (id) {
@@ -53,7 +56,7 @@ const app = new Vue({
             axios.post("/items/queryById", temp).then((res) => {
                 app.uppitem = res.data;
             }).catch((error) => {
-                alert(error);
+                alert("数据填写有误!");
             });
         },
 
@@ -64,7 +67,7 @@ const app = new Vue({
                 });
                 app.items.push(res.data);
             }).catch((error) => {
-                alert(error);
+                alert("数据填写有误!");
             });
         },
 
@@ -75,7 +78,7 @@ const app = new Vue({
                     return array[index].id !== id;
                 });
             }).catch((error) => {
-                alert(error);
+                alert("数据填写有误!");
             });
         },
 
@@ -86,7 +89,7 @@ const app = new Vue({
                 }
                 app.items = res.data;
             }).catch((error) => {
-                alert(error);
+                alert("数据填写有误!");
             });
             app.box.itemcheck = true;
             app.box.stockcheck = false;
@@ -100,9 +103,9 @@ const app = new Vue({
             app.box.putin = false;
             app.box.putout = false;
 
-            axios.post("/record/queryAllRecord").then((res)=>{
-                console.log(res.data);
-            })
+            axios.post("/record/queryMap").then((res) => {
+                app.itemmap = res.data;
+            });
         }
         ,
         openputin: function () {
@@ -126,6 +129,7 @@ const app = new Vue({
 
                 app.ruku = response.data;
             }).catch((error) => {
+                alert("数据填写有误");
                 console.log(error);
             });
 
@@ -147,6 +151,8 @@ const app = new Vue({
                     }
                 });
                 app.ruku.push(res.data);
+            }).catch((error)=>{
+                alert("数据填写有误");
             });
 
             app.putinadditem = [];
@@ -173,6 +179,7 @@ const app = new Vue({
 
                 app.chuku = response.data;
             }).catch((error) => {
+                alert("数据填写有误!");
                 console.log(error);
             });
             axios.post("/record/queryMap").then((res) => {
@@ -198,11 +205,34 @@ const app = new Vue({
                     });
                     app.chuku.push(res.data);
                 }
+            }).catch((error)=>{
+                alert("数据填写有误!")
             });
             app.putoutadditem = [];
         },
         checkitem:function () {
-            axios.post("/record/queryAllRecord",app.queryutil);
+            app.endlist = null;
+            axios.post("/record/queryAllRecord",app.queryutil).then((response)=>{
+                app.cost = response.data.cost;
+                app.sell = response.data.sell;
+                app.temp = response.data.recordsList;
+                app.temp.forEach((a)=>{
+                    app.itemmap.forEach((b)=>{
+                        if(a.item_id = b.id){
+                            a.item_id = b.itemname;
+                        }
+                    });
+                    a.time = fmtDate(a.time);
+                    if(a.type == 0){
+                        a.type = "买入";
+                    }else{
+                        a.type = "卖出";
+                    }
+                });
+                app.endlist = app.temp;
+            }).catch((error)=>{
+                alert("数据填写有误!");
+            });
         }
     }
 });

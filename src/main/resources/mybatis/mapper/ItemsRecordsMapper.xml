@@ -34,5 +34,15 @@ select number from Items where id = #{0}
 
     <select id="queryAll" resultType="cn.harlan.entity.ItemRecords">
         select * from ItemRecords
+        <where>
+            <if test="date != null">
+                time > #{date}
+            </if>
+
+            <if test="type != null">
+                and   type = #{type}
+            </if>
+
+        </where>
     </select>
 </mapper>
