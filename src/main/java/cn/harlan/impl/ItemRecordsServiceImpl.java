@@ -50,5 +50,10 @@ public class ItemRecordsServiceImpl implements ItemRecordsService{
        return mapper.checknumber(id);
     }
 
+    @Override
+    public List<ItemRecords> queryAll() {
+        return mapper.queryAll();
+    }
+
 
 }

@@ -15,4 +15,6 @@ public interface ItemRecordsService {
     public  void kucunadd(ItemRecords itemRecords);
     public  void chukuadd(ItemRecords itemRecords);
     Integer checknumber(Integer id);
+
+    List<ItemRecords> queryAll();
 }

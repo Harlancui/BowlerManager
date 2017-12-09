@@ -1,6 +1,12 @@
 const app = new Vue({
     el: "#app",
     data: {
+        queryutil:{
+            year:null,
+            month:null,
+            day:null,
+            type:0
+        },
         putinadditem: {},
         putoutadditem: {},
         items: [],
@@ -93,6 +99,10 @@ const app = new Vue({
             app.box.stockcheck = true;
             app.box.putin = false;
             app.box.putout = false;
+
+            axios.post("/record/queryAllRecord").then((res)=>{
+                console.log(res.data);
+            })
         }
         ,
         openputin: function () {
@@ -139,6 +149,7 @@ const app = new Vue({
                 app.ruku.push(res.data);
             });
 
+            app.putinadditem = [];
         }
         ,
         openputout: function () {
@@ -188,6 +199,10 @@ const app = new Vue({
                     app.chuku.push(res.data);
                 }
             });
+            app.putoutadditem = [];
+        },
+        checkitem:function () {
+            axios.post("/record/queryAllRecord",app.queryutil);
         }
     }
 });

@@ -21,8 +21,8 @@
         <!--头部-->
         <header class="main-header">
             <a href="#" class="logo">
-                <span class="logo-mini"><b>H</b>C</span>
-                <span class="logo-lg"><b>Harlan</b>Cui</span>
+                <span class="logo-mini"><b>海</b>玉</span>
+                <span class="logo-lg"><b>Harlan</b> cui</span>
             </a>
             <nav class="navbar navbar-static-top">
                 <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
@@ -87,7 +87,10 @@
                     <div class="col-md-12">
                         <div class="box">
                             <div class="box-header with-border">
-                                <h3 class="box-title">所有类别</h3>
+                                <button type="button" class="btn btn-success" data-toggle="modal"
+                                        data-target="#itemadd">
+                                    新增
+                                </button>
                             </div>
                             <!-- /.box-header -->
                             <div class="box-body">
@@ -123,10 +126,7 @@
                             </div>
                             <!-- /.box-body -->
                             <div class="box-footer clearfix">
-                                <button type="button" class="btn btn-success" data-toggle="modal"
-                                        data-target="#itemadd">
-                                    新增
-                                </button>
+
                             </div>
                         </div>
                         <!-------------------------------------------------->
@@ -149,7 +149,7 @@
                                                        placeholder="单价">
                                             </div>
                                             <div class="form-group">
-                                                <input class="form-control" v-model="additem.number" placeholder="总量">
+                                                <input class="form-control" v-model="additem.number" placeholder="总量" disabled>
                                             </div>
                                             <div class="form-group">
                                                 <input class="form-control" v-model="additem.createuser"
@@ -190,7 +190,7 @@
                                                        placeholder="单价">
                                             </div>
                                             <div class="form-group">
-                                                <input class="form-control" v-model="uppitem.number" placeholder="总量">
+                                                <input class="form-control" v-model="uppitem.number" placeholder="总量" disabled>
                                             </div>
                                             <div class="form-group">
                                                 <input class="form-control" v-model="uppitem.createuser"
@@ -217,7 +217,70 @@
 
                 <!--库存查看-->
                 <div class="row" v-show="box.stockcheck">
+                    <div class="col-md-12">
+                        <div class="box">
+                            <div class="box-header with-border">
+                                <div class="col-md-12">
+                                    <div class="col-md-2">
+                                        <input type="text" v-model="queryutil.year" class="form-control pull-right" placeholder="年">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input type="text" v-model="queryutil.month" class="form-control pull-right" placeholder="月">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input type="text" v-model="queryutil.day" class="form-control pull-right" placeholder="日">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <select class="form-control select2 select2-hidden-accessible" v-model="queryutil.type">
+                                            <option value="0">买入</option>
+                                            <option value="1">卖出</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <button type="submit" class="btn btn-warning" @click="checkitem">检索</button>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="col-md-6">花费
+                                            <p>111</p>
+                                        </label>
+                                        <label class="col-md-6">收入
+                                            <p>111</p>
+                                        </label>
+                                    </div>
 
+                                </div>
+                            </div>
+                            <!-- /.box-header -->
+                            <div class="box-body">
+                                <table class="table table-bordered">
+                                    <tbody>
+                                    <tr>
+                                        <th>编号</th>
+                                        <th>名称</th>
+                                        <th>类型</th>
+                                        <th>买家</th>
+                                        <th>卖家</th>
+                                        <th>数量</th>
+                                        <th>总价</th>
+                                        <th>联系方式</th>
+                                        <th>时间</th>
+                                    </tr>
+                                    <tr v-for="item in items">
+                                      <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <!--入库-->
                 <div class="row" v-show="box.putin">
@@ -418,6 +481,7 @@
 
 
 <script src="adminlte/bower_components/jquery/dist/jquery.min.js"></script>
+
 <script src="adminlte/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="adminlte/bower_components/fastclick/lib/fastclick.js"></script>
 <script src="adminlte/dist/js/adminlte.min.js"></script>

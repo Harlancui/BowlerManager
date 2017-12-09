@@ -31,4 +31,8 @@
     <select id="checknumber" resultType="java.lang.Integer" parameterType="java.lang.Integer">
 select number from Items where id = #{0}
     </select>
+
+    <select id="queryAll" resultType="cn.harlan.entity.ItemRecords">
+        select * from ItemRecords
+    </select>
 </mapper>

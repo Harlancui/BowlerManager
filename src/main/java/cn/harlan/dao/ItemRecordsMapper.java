@@ -15,4 +15,6 @@ public interface ItemRecordsMapper {
     public  void kucunadd(ItemRecords itemRecords);
     public  void chukuadd(ItemRecords itemRecords);
     Integer checknumber(Integer id);
+
+    public List<ItemRecords> queryAll();
 }

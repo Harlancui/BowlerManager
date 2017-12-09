@@ -1,7 +1,9 @@
 package cn.harlan.controller;
 
+import cn.harlan.entity.End;
 import cn.harlan.entity.ItemMap;
 import cn.harlan.entity.ItemRecords;
+import cn.harlan.entity.QueryUtil;
 import cn.harlan.service.ItemRecordsService;
 import org.omg.PortableInterceptor.INACTIVE;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -62,6 +65,12 @@ public class ItemRecordsContorller {
             service.putinadd(itemRecords);
         }
         return itemRecords;
+    }
+
+    @RequestMapping(value = "queryAllRecord",method = RequestMethod.POST)
+    public End queryAllRecord(@RequestBody QueryUtil util){
+        System.out.println(util.toString());
+        return null;
     }
 
 }
